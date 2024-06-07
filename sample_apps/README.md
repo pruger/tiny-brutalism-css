@@ -13,4 +13,7 @@ Collection of mockup applications showcasing what this tiny library can do with 
 ### Task Manager
 <img src="demos/task.gif" alt="Task Manager" width="480"/>
 
+### Weather App
+<img src="demos/weather.gif" alt="Weather APP" width="400"/> 
+
 TBA

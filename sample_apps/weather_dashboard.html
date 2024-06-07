@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather Dashboard</title>
+    <link rel="stylesheet" href="../tiny-brutalism.css">
+</head>
+<body>
+    <div class="container" style="max-width: 600px; text-align: center;">
+        <h1>🌤️ Weather Dashboard 🌡️</h1>
+        <form id="weatherForm">
+            <label for="cityName">Enter City Name</label>
+            <input type="text" id="cityName" name="cityName" required>
+            <button type="submit" class="button">Get Weather</button>
+        </form>
+
+        <div id="weatherResult" class="mt-2">
+            <!-- Weather results will be displayed here -->
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('weatherForm').addEventListener('submit', async (event) => {
+            event.preventDefault();
+            const cityName = event.target.cityName.value;
+            const apiKey = 'YourAPIKeyHere'; //https://openweathermap.org/appid
+            const apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=${apiKey}&units=metric`;
+
+            try {
+                const response = await fetch(apiUrl);
+                const data = await response.json();
+                if (data.cod === 200) {
+                    displayWeather(data);
+                } else {
+                    showError(data.message);
+                }
+            } catch (error) {
+                showError('An error occurred while fetching the weather data.');
+            }
+        });
+
+        function displayWeather(data) {
+            const weatherResult = document.getElementById('weatherResult');
+            weatherResult.innerHTML = `
+                <div class="box mt-2">
+                    <h2>${data.name}, ${data.sys.country}</h2>
+                    <p>${data.weather[0].description}</p>
+                    <p>Temperature: ${data.main.temp}°C</p>
+                    <p>Humidity: ${data.main.humidity}%</p>
+                    <p>Wind Speed: ${data.wind.speed} m/s</p>
+                </div>
+            `;
+        }
+
+        function showError(message) {
+            const weatherResult = document.getElementById('weatherResult');
+            weatherResult.innerHTML = `
+                <div class="alert alert-danger mt-2">
+                    ${message}
+                </div>
+            `;
+        }
+    </script>
+    <footer class="text-center mt-2">
+        <p>&copy; 2024 <a href="https://x.com/nop_sl3d">pruger</a>. All rights reserved.</p>
+        <a href="https://github.com/pruger/tiny-brutalism-css" class="button">Check on GitHub</a>
+    </footer>    
+</body>
+</html>
