@@ -7,6 +7,6 @@ Collection of mockup applications showcasing what this tiny library can do with 
 ### Dex
 A simple yet brutal USDC - Crypto conversion tool
 
-<img src="demos/dex.gif" alt="Screen1" width="480"/>
+<img src="demos/dex.gif" alt="DEX" width="480"/> <img src="demos/tinder.gif" alt="Tinder" width="480"/> <img src="demos/task.gif" alt="Task Manager" width="480"/>
 
 TBA

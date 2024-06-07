@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Brutal Task Manager</title>
+    <link rel="stylesheet" href="../tiny-brutalism.css">
+</head>
+<body>
+    <div class="container" style="max-width: 600px;">
+        <div class="row">
+            <div class="col-9">
+                <h1>Brutal Task Manager</h1>
+            </div>
+            <div class="col-3 text-right">
+                <button id="addTaskButton" class="button">Add Task</button>
+            </div>
+        </div>
+            <br>
+        <div class="alert alert-info" id="infoAlert">
+            Manage your tasks efficiently.
+        </div>
+            <br>
+        <div class="task-list" id="taskList">
+            <!-- Task items will be added here dynamically -->
+        </div>
+
+        <div id="taskModal" class="modal">
+            <div class="modal-content">
+                <h2 id="modalTitle">Add New Task</h2>
+                <form id="taskForm">
+                    <label for="taskTitle">Title</label>
+                    <input type="text" id="taskTitle" name="taskTitle" required>
+
+                    <label for="taskDescription">Description</label>
+                    <textarea id="taskDescription" name="taskDescription" required></textarea>
+
+                    <label for="taskProgress">Progress</label>
+                    <input type="range" id="taskProgress" name="taskProgress" min="0" max="100" value="0">
+
+                    <button type="submit" class="button">Save Task</button>
+                    <button type="button" id="closeModalButton" class="button">Cancel</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const addTaskButton = document.getElementById('addTaskButton');
+        const taskModal = document.getElementById('taskModal');
+        const closeModalButton = document.getElementById('closeModalButton');
+        const taskForm = document.getElementById('taskForm');
+        const taskList = document.getElementById('taskList');
+        let editingTask = null;
+
+        addTaskButton.addEventListener('click', () => {
+            openModal();
+        });
+
+        closeModalButton.addEventListener('click', () => {
+            closeModal();
+        });
+
+        taskForm.addEventListener('submit', (event) => {
+            event.preventDefault();
+
+            const title = event.target.taskTitle.value;
+            const description = event.target.taskDescription.value;
+            const progress = event.target.taskProgress.value;
+
+            if (editingTask) {
+                updateTask(editingTask, title, description, progress);
+            } else {
+                addTask(title, description, progress);
+            }
+
+            closeModal();
+        });
+
+        window.addEventListener('click', (event) => {
+            if (event.target === taskModal) {
+                closeModal();
+            }
+        });
+
+        function addTask(title, description, progress) {
+            const taskBox = document.createElement('div');
+            taskBox.className = 'box';
+            taskBox.innerHTML = `
+                <div class="row mb-1">
+                    <div class="col-10">
+                        <h2>${title}</h2>
+                    </div>
+                    <div class="col-2 text-right">
+                        <button class="button delete-task">X</button>
+                    </div>
+                </div>
+                <p class="mb-1">${description}</p>
+                <div class="progress mb-1">
+                    <div class="progress-bar" style="width: ${progress}%"></div>
+                </div>
+                <div class="row">
+                    <div class="col-6 text-center">
+                        <button class="button edit-task">Edit</button>
+                    </div>
+                    <div class="col-6 text-center">
+                        <button class="button mark-finished">Mark as Finished</button>
+                    </div>
+                </div>
+            `;
+
+            taskList.appendChild(taskBox);
+            taskBox.querySelector('.edit-task').addEventListener('click', () => {
+                editTask(taskBox, title, description, progress);
+            });
+            taskBox.querySelector('.mark-finished').addEventListener('click', () => {
+                markTaskAsFinished(taskBox);
+            });
+            taskBox.querySelector('.delete-task').addEventListener('click', () => {
+                deleteTask(taskBox);
+            });
+        }
+
+        function editTask(taskBox, title, description, progress) {
+            editingTask = taskBox;
+            document.getElementById('taskTitle').value = title;
+            document.getElementById('taskDescription').value = description;
+            document.getElementById('taskProgress').value = progress;
+            document.getElementById('modalTitle').innerText = 'Edit Task';
+            openModal();
+        }
+
+        function updateTask(taskBox, title, description, progress) {
+            taskBox.querySelector('h2').innerText = title;
+            taskBox.querySelector('p').innerText = description;
+            taskBox.querySelector('.progress-bar').style.width = `${progress}%`;
+            editingTask = null;
+        }
+
+        function markTaskAsFinished(taskBox) {
+            taskBox.querySelector('.progress-bar').classList.add('progress-bar-100');
+            taskBox.querySelector('.progress-bar').style.width = '100%';
+        }
+
+        function deleteTask(taskBox) {
+            taskList.removeChild(taskBox);
+        }
+
+        function openModal() {
+            taskModal.style.display = 'flex';
+        }
+
+        function closeModal() {
+            taskModal.style.display = 'none';
+            taskForm.reset();
+            document.getElementById('modalTitle').innerText = 'Add New Task';
+            editingTask = null;
+        }
+    </script>
+    <footer class="text-center">
+        <p>&copy; 2024 <a href="https://x.com/nop_sl3d">pruger</a>. All rights reserved.</p>
+        <a href="https://github.com/pruger/tiny-brutalism-css" class="button">Check on GitHub</a>
+    </footer>
+</body>
+</html>
