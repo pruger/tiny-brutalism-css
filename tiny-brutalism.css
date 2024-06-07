@@ -1,0 +1,214 @@
+/* tiny-brutalism.css */
+
+/* Importing a Monochrome Font */
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&display=swap');
+
+/* Basic Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    height: 100%;
+    font-family: 'Roboto Mono', monospace;
+    background-color: #fff;
+    color: #000;
+}
+
+/* Typography */
+h1, h2, h3, h4, h5, h6 {
+    margin-bottom: 1rem;
+    font-weight: 700;
+}
+
+p {
+    margin-bottom: 1rem;
+}
+
+/* Containers */
+.container {
+    width: 100%;
+    margin: 0 auto;
+    padding: 1rem;
+    max-width: 1200px;
+}
+
+/* Grid System */
+.row {
+    display: flex;
+    flex-wrap: wrap;
+    margin: -0.5rem;
+}
+
+.col {
+    flex: 1;
+    padding: 0.5rem;
+}
+
+.col-1 { flex: 0 0 8.33%; }
+.col-2 { flex: 0 0 16.66%; }
+.col-3 { flex: 0 0 25%; }
+.col-4 { flex: 0 0 33.33%; }
+.col-5 { flex: 0 0 41.66%; }
+.col-6 { flex: 0 0 50%; }
+.col-7 { flex: 0 0 58.33%; }
+.col-8 { flex: 0 0 66.66%; }
+.col-9 { flex: 0 0 75%; }
+.col-10 { flex: 0 0 83.33%; }
+.col-11 { flex: 0 0 91.66%; }
+.col-12 { flex: 0 0 100%; }
+
+/* Buttons */
+button, .button {
+    display: inline-block;
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
+    text-align: center;
+    text-decoration: none;
+    color: #000;
+    background-color: #fff;
+    border: 2px solid #000;
+    box-shadow: 4px 4px 0 #000;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+button:hover, .button:hover {
+    box-shadow: 6px 6px 0 #000;
+}
+
+/* Forms */
+input, textarea, select {
+    width: 100%;
+    padding: 0.75rem;
+    margin-bottom: 1rem;
+    border: 2px solid #000;
+    box-shadow: 4px 4px 0 #000;
+    font-family: 'Roboto Mono', monospace;
+}
+
+textarea {
+    resize: vertical;
+}
+
+label {
+    margin-bottom: 0.5rem;
+    display: block;
+}
+
+/* Checkboxes and Radio Buttons */
+input[type="radio"], input[type="checkbox"] {
+    display: inline-block;
+    width: auto;
+    margin-right: 0.5rem;
+}
+
+select[multiple] {
+    height: auto;
+}
+
+/* Boxes */
+.box {
+    padding: 1rem;
+    border: 2px solid #000;
+    box-shadow: 4px 4px 0 #000;
+    margin-bottom: 1rem;
+}
+
+/* Utility Classes */
+.text-center {
+    text-align: center;
+}
+
+.mt-1 { margin-top: 1rem; }
+.mb-1 { margin-bottom: 1rem; }
+.ml-1 { margin-left: 1rem; }
+.mr-1 { margin-right: 1rem; }
+
+.mt-2 { margin-top: 2rem; }
+.mb-2 { margin-bottom: 2rem; }
+.ml-2 { margin-left: 2rem; }
+.mr-2 { margin-right: 2rem; }
+
+/* Alerts */
+.alert {
+    padding: 1rem;
+    border: 2px solid #000;
+    box-shadow: 4px 4px 0 #000;
+    margin-bottom: 1rem;
+}
+
+.alert-info {
+    background-color: #e7f5ff;
+    color: #000;
+}
+
+.alert-warning {
+    background-color: #fff3cd;
+    color: #000;
+}
+
+.alert-danger {
+    background-color: #f8d7da;
+    color: #000;
+}
+
+/* Modals */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    background-color: #fff;
+    padding: 2rem;
+    border: 2px solid #000;
+    box-shadow: 4px 4px 0 #000;
+}
+
+/* Progress Bars */
+.progress {
+    width: 100%;
+    background-color: #e0e0e0;
+    border: 2px solid #000;
+    box-shadow: 4px 4px 0 #000;
+    height: 1.5rem;
+}
+
+.progress-bar {
+    height: 100%;
+    background-color: #000;
+    width: 0;
+    transition: width 0.2s ease;
+}
+
+.progress-bar-25 { width: 25%; }
+.progress-bar-50 { width: 50%; }
+.progress-bar-75 { width: 75%; }
+.progress-bar-100 { width: 100%; }
+
+/* Code Container */
+.code-container {
+    background-color: #f5f5f5;
+    border: 2px solid #000;
+    box-shadow: 4px 4px 0 #000;
+    padding: 1rem;
+    font-family: 'Roboto Mono', monospace;
+    margin-bottom: 1rem;
+}
+
+/* Media Queries */
+@media (max-width: 768px) {
+    .col {
+        flex: 0 0 100%;
+    }
+}
