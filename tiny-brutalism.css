@@ -206,6 +206,16 @@ select[multiple] {
     margin-bottom: 1rem;
 }
 
+/* Text Links */
+a {
+    color: #000;
+    text-decoration: underline;
+}
+
+a:hover {
+    color: #808080;
+}
+
 /* Media Queries */
 @media (max-width: 768px) {
     .col {

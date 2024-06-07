@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tiny Brutalism CSS Demo</title>
+    <link rel="stylesheet" href="../tiny-brutalism.css">
+</head>
+<body>
+
+    <div class="container">
+        <h1 class="text-center">Tiny BRUTALISM CSS Library</h1>
+        <p class="text-center">A simple, bold, and minimal CSS library for brutalist web design.</p>
+
+        <section>
+            <h2>Typography</h2>
+            <p>This library uses the 'Roboto Mono' font and provides basic styling for headings and paragraphs.</p>
+            <h1>Heading 1</h1>
+            <h2>Heading 2</h2>
+            <h3>Heading 3</h3>
+            <h4>Heading 4</h4>
+            <h5>Heading 5</h5>
+            <h6>Heading 6</h6>
+            <p>Paragraph text goes here. It has a default bottom margin for proper spacing.</p>
+        </section>
+        <br>
+
+        <section>
+            <h2>Containers</h2>
+            <p>Containers center the content and provide padding.</p>
+            <div class="box">
+                This is a box container with padding and border.
+            </div>
+        </section>
+        <br>
+
+        <section>
+            <h2>Grid System</h2>
+            <p>Use the grid system to create responsive layouts with flexible columns.</p>
+            <div class="row">
+                <div class="col col-6">
+                    <div class="box">.col-6</div>
+                </div>
+                <div class="col col-6">
+                    <div class="box">.col-6</div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col col-4">
+                    <div class="box">.col-4</div>
+                </div>
+                <div class="col col-4">
+                    <div class="box">.col-4</div>
+                </div>
+                <div class="col col-4">
+                    <div class="box">.col-4</div>
+                </div>
+            </div>
+        </section>
+        <br>
+
+        <section>
+            <h2>Buttons</h2>
+            <p>Stylish buttons with hover effects.</p>
+            <button>Button</button>
+            <a href="#" class="button">Button Link</a>
+        </section>
+        <br>
+
+        <section>
+            <h2>Forms</h2>
+            <p>Basic form elements with bold styles.</p>
+            <form>
+                <label for="text-input">Text Input</label>
+                <input type="text" id="text-input">
+                <label for="password-input">Password Input</label>
+                <input type="password" id="password-input">
+                <label for="textarea">Textarea</label>
+                <textarea id="textarea"></textarea>
+                <label for="select">Select</label>
+                <select id="select">
+                    <option>Option 1</option>
+                    <option>Option 2</option>
+                    <option>Option 3</option>
+                    <option>Option 4</option>
+                </select>
+                <label><input type="checkbox"> Checkbox</label>
+                <label><input type="radio" name="radio"> Radio Button</label>
+                <button type="submit">Submit</button>
+            </form>
+        </section>
+        <br>
+
+        <section>
+            <h2>Alerts</h2>
+            <p>Different types of alert messages.</p>
+            <div class="alert alert-info">This is an info alert.</div>
+            <div class="alert alert-warning">This is a warning alert.</div>
+            <div class="alert alert-danger">This is a danger alert.</div>
+        </section>
+        <br>
+
+        <section>
+            <h2>Modals</h2>
+            <p>Example of a modal dialog. Click the button to open the modal.</p>
+            <button onclick="document.getElementById('modal').style.display='flex'">Open Modal</button>
+            <div id="modal" class="modal">
+                <div class="modal-content">
+                    <h3>Modal Title</h3>
+                    <p>This is a modal window. Click outside to close.</p>
+                </div>
+            </div>
+        </section>
+        <br>
+
+        <section>
+            <h2>Progress Bars</h2>
+            <p>Progress bars to indicate progress.</p>
+            <div class="progress">
+                <div class="progress-bar progress-bar-25"></div>
+            </div>
+            <br>
+            <div class="progress">
+                <div class="progress-bar progress-bar-50"></div>
+            </div>
+            <br>
+            <div class="progress">
+                <div class="progress-bar progress-bar-75"></div>
+            </div>
+            <br>
+            <div class="progress">
+                <div class="progress-bar progress-bar-100"></div>
+            </div>
+        </section>
+        <br>
+
+        <section>
+            <h2>Code Container</h2>
+            <p>Stylized container for displaying code snippets.</p>
+            <div class="code-container">
+                <code>
+/* Example of CSS code block */
+body {
+    font-family: 'Roboto Mono', monospace;
+    background-color: #fff;
+}
+                </code>
+            </div>
+        </section>
+        <br>
+
+        <footer class="text-center">
+            <p>&copy; 2024 <a href="https://x.com/nop_sl3d">pruger</a>. All rights reserved.</p>
+            <a href="https://github.com/pruger/tiny-brutalism-css" class="button">Check on GitHub</a>
+        </footer>
+    </div>
+
+    <script>
+        document.getElementById('modal').addEventListener('click', function (e) {
+            if (e.target === this) {
+                this.style.display = 'none';
+            }
+        });
+    </script>
+
+</body>
+</html>

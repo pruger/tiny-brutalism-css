@@ -3,6 +3,10 @@
 ### About
 Tiny Brutalism is a minimalist, brutalist-style CSS framework that focuses on monochrome colors, hard edges, and prominent drop shadows. It is designed to be simple, small, and easy to use.
 
+### Features
+* Tiny . < 4KB (3884)
+* Brutal
+
 ### Installation
 Local installation only at this time. CDN Delivery shortly
 ````
@@ -14,7 +18,6 @@ Tiny Brutalism provides components with predefined styles. You will need to defi
 
 ### Demo
 Documentation to be uploaded shortly.
-
 
 ### Preview
 <img src="screenshots/screen1.png" alt="Screen1" width="700"/>
