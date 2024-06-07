@@ -1,5 +1,5 @@
 <div align="center">
-  <a href="https://pruger.github.io/tiny-brutalism-css/" target="_blank"><img src="logos/logo_dropshadow.png" alt="Tiny BRUTALISM CSS: Ostblockromantik-style  CSS framework" style="max-width: 10%;"></a>
+  <a href="https://pruger.github.io/tiny-brutalism-css/" target="_blank"><img src="logos/logo_dropshadow.png" alt="Tiny BRUTALISM CSS: Ostblockromantik-style  CSS framework" width="200px"></a>
   <h2>Tiny Brutalism CSS</h2>
 
   <a href="https://x.com/nop_sl3d">Twitter</a> / <a href="https://github.com/pruger/">Github</a>
