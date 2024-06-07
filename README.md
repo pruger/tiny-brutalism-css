@@ -17,7 +17,7 @@ Local installation only at this time. CDN Delivery shortly
 Tiny Brutalism provides components with predefined styles. You will need to define your own layout. 
 
 ### Demo
-Documentation to be uploaded shortly.
+**[Documentation / Demo](https://pruger.github.io/tiny-brutalism-css)**
 
 ### Preview
 <img src="screenshots/screen1.png" alt="Screen1" width="700"/>
