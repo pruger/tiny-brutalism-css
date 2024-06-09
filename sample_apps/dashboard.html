@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard App</title>
+    <link rel="stylesheet" href="../tiny-brutalism.css">
+</head>
+<body>
+    <div class="container" id="loginContainer" style="height: 100vh; display: flex; justify-content: center; align-items: center;">
+        <div class="box" style="max-width: 300px; width: 100%;">
+            <h2 class="text-center">Login</h2>
+            <form id="loginForm">
+                <label for="username">Username</label>
+                <input type="text" id="username" name="username" required>
+                
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" required>
+                
+                <button type="submit" class="button">Login</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="container hidden" id="dashboardContainer">
+        <div class="row">
+            <div class="col-12 text-right">
+                <button id="logoutButton" class="button">Logout</button>
+            </div>
+        </div>
+        <br>
+        <h1>Welcome to the Dashboard</h1>
+        <br>
+        <div class="row">
+            <div class="col-4">
+                <div class="box">
+                    <h3>Revenue</h3>
+                    <p>$12,345</p>
+                    <img src="https://via.placeholder.com/300x200" alt="Revenue Graph">
+                </div>
+            </div>
+            <div class="col-4">
+                <div class="box">
+                    <h3>User Engagement</h3>
+                    <p>75%</p>
+                    <img src="https://via.placeholder.com/300x200" alt="User Engagement Graph">
+                </div>
+            </div>
+            <div class="col-4">
+                <div class="box">
+                    <h3>Conversion Rate</h3>
+                    <p>4.5%</p>
+                    <img src="https://via.placeholder.com/300x200" alt="Conversion Rate Graph">
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-4">
+                <div class="box">
+                    <h3>Sales Overview</h3>
+                    <img src="https://via.placeholder.com/400x300" alt="Sales Overview Graph">
+                </div>
+            </div>
+            <div class="col-4">
+                <div class="box">
+                    <h3>Customer Satisfaction</h3>
+                    <img src="https://via.placeholder.com/400x300" alt="Customer Satisfaction Graph">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const loginForm = document.getElementById('loginForm');
+        const loginContainer = document.getElementById('loginContainer');
+        const dashboardContainer = document.getElementById('dashboardContainer');
+        const logoutButton = document.getElementById('logoutButton');
+
+        loginForm.addEventListener('submit', (event) => {
+            event.preventDefault();
+            const username = event.target.username.value;
+            const password = event.target.password.value;
+
+            // Mocked login validation
+            if (username === 'admin' && password === 'password') {
+                loginContainer.style.display = 'none';
+                dashboardContainer.classList.remove('hidden');
+            } else {
+                alert('Invalid username or password');
+            }
+        });
+
+        logoutButton.addEventListener('click', () => {
+            dashboardContainer.classList.add('hidden');
+            loginContainer.style.display = 'flex';
+            loginForm.reset();
+        });
+    </script>
+    <footer class="text-center mt-2">
+        <p>&copy; 2024 <a href="https://x.com/nop_sl3d">pruger</a>. All rights reserved.</p>
+        <a href="https://github.com/pruger/tiny-brutalism-css" class="button">Check on GitHub</a>
+    </footer>
+</body>
+</html>

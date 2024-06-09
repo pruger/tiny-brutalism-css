@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Endless Sidescroller Game</title>
+    <link rel="stylesheet" href="../../tiny-brutalism.css">
+</head>
+<body>
+    <div class="container text-center">
+        <h1>Endless Sidescroller Game</h1>
+        <div id="gameArea" class="box" style="width: 600px; height: 300px; overflow: hidden; position: relative; margin: 0 auto;">
+            <div id="player" class="box" style="width: 30px; height: 30px; background-color: black; position: absolute; bottom: 0; left: 50px;"></div>
+            <div id="obstacle" class="box" style="width: 30px; height: 30px; background-color: red; position: absolute; bottom: 0; left: 600px;"></div>
+        </div>
+        <button id="jumpButton" class="button mt-2">Jump</button>
+        <button id="restartButton" class="button mt-2" onclick="restartGame()">Restart Game</button>
+        <div id="score" class="alert alert-info mt-2">Score: 0</div>
+    </div>
+
+    <div id="gameOverModal" class="modal">
+        <div class="modal-content">
+            <h2>Game Over</h2>
+            <p id="finalScore"></p>
+            <button id="closeModalButton" class="button">Close</button>
+        </div>
+    </div>
+
+    <script>
+        let player = document.getElementById('player');
+        let obstacle = document.getElementById('obstacle');
+        let gameArea = document.getElementById('gameArea');
+        let scoreDisplay = document.getElementById('score');
+        let jumpButton = document.getElementById('jumpButton');
+        let gameOverModal = document.getElementById('gameOverModal');
+        let finalScore = document.getElementById('finalScore');
+        let closeModalButton = document.getElementById('closeModalButton');
+        let score = 0;
+        let jumping = false;
+        let gameInterval;
+        let obstacleSpeed = 5;
+
+        function startGame() {
+            score = 0;
+            scoreDisplay.textContent = 'Score: 0';
+            player.style.bottom = '0px';
+            obstacle.style.left = '600px';
+            gameInterval = setInterval(gameLoop, 20);
+            jumpButton.disabled = false;
+            gameOverModal.style.display = 'none';
+        }
+
+        function stopGame() {
+            clearInterval(gameInterval);
+        }
+
+        function restartGame() {
+            stopGame();
+            startGame();
+        }
+
+        function gameLoop() {
+            let playerBottom = parseInt(window.getComputedStyle(player).bottom);
+            let obstacleLeft = parseInt(window.getComputedStyle(obstacle).left);
+
+            // Move the obstacle
+            obstacle.style.left = (obstacleLeft - obstacleSpeed) + 'px';
+
+            // Reset the obstacle position and increase score
+            if (obstacleLeft < 0) {
+                obstacle.style.left = '600px';
+                score++;
+                scoreDisplay.textContent = 'Score: ' + score;
+            }
+
+            // Check for collision
+            if (obstacleLeft < 80 && obstacleLeft > 50 && playerBottom <= 30) {
+                gameOver();
+            }
+
+            // Handle jumping
+            if (jumping) {
+                player.style.bottom = (playerBottom + 5) + 'px';
+                if (playerBottom >= 150) {
+                    jumping = false;
+                }
+            } else if (playerBottom > 0) {
+                player.style.bottom = (playerBottom - 5) + 'px';
+            }
+        }
+
+        function jump() {
+            if (player.style.bottom === '0px') {
+                jumping = true;
+            }
+        }
+
+        function gameOver() {
+            stopGame();
+            jumpButton.disabled = true;
+            finalScore.textContent = '🏆 Score: ' + score + ' 🏆';
+            gameOverModal.style.display = 'flex';
+        }
+
+        closeModalButton.addEventListener('click', () => {
+            gameOverModal.style.display = 'none';
+            startGame();
+        });
+
+        jumpButton.addEventListener('click', jump);
+
+        startGame();
+    </script>
+    <footer class="text-center mt-2">
+        <p>&copy; 2024 <a href="https://x.com/nop_sl3d">pruger</a>. All rights reserved.</p>
+        <a href="https://github.com/pruger/tiny-brutalism-css" class="button">Check on GitHub</a>
+    </footer>
+</body>
+</html>

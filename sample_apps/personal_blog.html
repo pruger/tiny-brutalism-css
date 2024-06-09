@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Brutal Blog</title>
+    <link rel="stylesheet" href="../tiny-brutalism.css">
+</head>
+<body>
+    <header class="container text-center">
+        <h1>My Brutal(ist) Blog</h1>
+        <nav class="row text-center">
+            <div class="col"><a href="#home" class="nav-link button" data-target="home">Home</a></div>
+            <div class="col"><a href="#about" class="nav-link button" data-target="about">About</a></div>
+            <div class="col"><a href="#contact" class="nav-link button" data-target="contact">Contact</a></div>
+        </nav>
+    </header>
+
+    <main class="container">
+        <section id="home" class="section active">
+            <h2>Latest Blog Posts</h2>
+            <div class="box">
+                <h3>Blog Post 1</h3>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur auctor, libero a molestie venenatis, lorem nunc faucibus eros, a placerat libero lorem nec dui.</p>
+                <button class="button">Read More</button>
+            </div>
+            <div class="box">
+                <h3>Blog Post 2</h3>
+                <p>Sed id nunc in sapien tristique feugiat. Integer non volutpat sapien, ac placerat nulla. In hac habitasse platea dictumst.</p>
+                <button class="button">Read More</button>
+            </div>
+            <div class="box">
+                <h3>Blog Post 3</h3>
+                <p>Vivamus efficitur urna in nulla bibendum, ut ullamcorper libero tincidunt. Duis sed lorem sit amet elit convallis scelerisque vel in sapien.</p>
+                <button class="button">Read More</button>
+            </div>
+        </section>
+
+        <section id="about" class="section" style="display:none;">
+            <div class="box">
+                <h2>About Me</h2>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur auctor, libero a molestie venenatis, lorem nunc faucibus eros, a placerat libero lorem nec dui.
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur auctor, libero a molestie venenatis, lorem nunc faucibus eros, a placerat libero lorem nec dui.
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur auctor, libero a molestie venenatis, lorem nunc faucibus eros, a placerat libero lorem nec dui.
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur auctor, libero a molestie venenatis, lorem nunc faucibus eros, a placerat libero lorem nec dui.
+                </p>
+            </div>
+        </section>
+
+        <section id="contact" class="section" style="display:none;">
+            <div class="box">
+                <h2>Contact Me</h2>
+                <form id="contactForm">
+                    <label for="name">Name</label>
+                    <input type="text" id="name" name="name" required>
+
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" required>
+
+                    <label for="message">Message</label>
+                    <textarea id="message" name="message" required></textarea>
+
+                    <button type="submit" class="button">Send Message</button>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <footer class="container text-center">
+        <p>&copy; 2024 <a href="https://x.com/nop_sl3d">pruger</a>. All rights reserved.</p>
+        <a href="https://github.com/pruger/tiny-brutalism-css" class="button">Check on GitHub</a>
+    </footer>    
+
+    <script>
+        document.getElementById('contactForm').addEventListener('submit', (event) => {
+            event.preventDefault();
+            alert('Message sent!');
+        });
+
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                document.querySelectorAll('.section').forEach(section => {
+                    section.classList.remove('active');
+                    section.style.display = 'none';
+                });
+
+                const targetId = this.getAttribute('data-target');
+                const targetSection = document.getElementById(targetId);
+                targetSection.classList.add('active');
+                targetSection.style.display = 'block';
+            });
+        });
+    </script>
+</body>
+</html>

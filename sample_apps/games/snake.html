@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Snake Game</title>
+    <link rel="stylesheet" href="../../tiny-brutalism.css">
+</head>
+<body>
+    <div class="container text-center">
+        <h1>Snake Game</h1>
+        <div id="gameArea" class="box" style="width: 600px; height: 400px; position: relative; margin: 0 auto; background-color: #f0f0f0;">
+        </div>
+        <button id="startButton" class="button mt-2" onclick="startGame()">Start Game</button>
+        <button id="restartButton" class="button mt-2" onclick="restartGame()">Restart Game</button>
+        <div id="score" class="alert alert-info mt-2">Score: 0</div>
+    </div>
+
+    <div id="gameOverModal" class="modal">
+        <div class="modal-content">
+            <h2>Game Over!</h2>
+            <p id="finalScore"></p>
+            <button id="closeModalButton" class="button">Close</button>
+        </div>
+    </div>
+
+    <script>
+        const gameArea = document.getElementById('gameArea');
+        const scoreDisplay = document.getElementById('score');
+        const gameOverModal = document.getElementById('gameOverModal');
+        const finalScore = document.getElementById('finalScore');
+        const closeModalButton = document.getElementById('closeModalButton');
+        let snake = [{x: 150, y: 150}, {x: 140, y: 150}, {x: 130, y: 150}, {x: 120, y: 150}, {x: 110, y: 150}];
+        let dx = 10;
+        let dy = 0;
+        let foodX;
+        let foodY;
+        let changingDirection = false;
+        let gameInterval;
+        let score = 0;
+
+        function startGame() {
+            score = 0;
+            snake = [{x: 150, y: 150}, {x: 140, y: 150}, {x: 130, y: 150}, {x: 120, y: 150}, {x: 110, y: 150}];
+            dx = 10;
+            dy = 0;
+            changingDirection = false;
+            scoreDisplay.textContent = 'Score: 0';
+            createFood();
+            gameInterval = setInterval(main, 100);
+            gameOverModal.style.display = 'none';
+        }
+
+        function stopGame() {
+            clearInterval(gameInterval);
+        }
+
+        function restartGame() {
+            stopGame();
+            startGame();
+        }
+
+        function main() {
+            if (didGameEnd()) return gameOver();
+            changingDirection = false;
+            clearCanvas();
+            drawFood();
+            advanceSnake();
+            drawSnake();
+        }
+
+        function clearCanvas() {
+            gameArea.innerHTML = '';
+        }
+
+        function drawSnake() {
+            snake.forEach(drawSnakePart);
+        }
+
+        function drawSnakePart(snakePart) {
+            const snakeElement = document.createElement('div');
+            snakeElement.style.width = '10px';
+            snakeElement.style.height = '10px';
+            snakeElement.style.backgroundColor = '#000';
+            snakeElement.style.position = 'absolute';
+            snakeElement.style.left = snakePart.x + 'px';
+            snakeElement.style.top = snakePart.y + 'px';
+            gameArea.appendChild(snakeElement);
+        }
+
+        function advanceSnake() {
+            const head = {x: snake[0].x + dx, y: snake[0].y + dy};
+            snake.unshift(head);
+
+            const didEatFood = snake[0].x === foodX && snake[0].y === foodY;
+            if (didEatFood) {
+                score += 1;
+                scoreDisplay.textContent = 'Score: ' + score;
+                createFood();
+            } else {
+                snake.pop();
+            }
+        }
+
+        function didGameEnd() {
+            for (let i = 4; i < snake.length; i++) {
+                const hasCollided = snake[i].x === snake[0].x && snake[i].y === snake[0].y;
+                if (hasCollided) return true;
+            }
+
+            const hitLeftWall = snake[0].x < 0;
+            const hitRightWall = snake[0].x > gameArea.clientWidth - 10;
+            const hitTopWall = snake[0].y < 0;
+            const hitBottomWall = snake[0].y > gameArea.clientHeight - 10;
+
+            return hitLeftWall || hitRightWall || hitTopWall || hitBottomWall;
+        }
+
+        function createFood() {
+            foodX = Math.floor(Math.random() * (gameArea.clientWidth / 10)) * 10;
+            foodY = Math.floor(Math.random() * (gameArea.clientHeight / 10)) * 10;
+
+            snake.forEach(function partHasFood(part) {
+                const foodIsOnSnake = part.x === foodX && part.y === foodY;
+                if (foodIsOnSnake) createFood();
+            });
+        }
+
+        function drawFood() {
+            const foodElement = document.createElement('div');
+            foodElement.style.width = '10px';
+            foodElement.style.height = '10px';
+            foodElement.style.backgroundColor = 'red';
+            foodElement.style.position = 'absolute';
+            foodElement.style.left = foodX + 'px';
+            foodElement.style.top = foodY + 'px';
+            gameArea.appendChild(foodElement);
+        }
+
+        function changeDirection(event) {
+            if (changingDirection) return;
+            changingDirection = true;
+            const keyPressed = event.keyCode;
+            const LEFT_KEY = 37;
+            const RIGHT_KEY = 39;
+            const UP_KEY = 38;
+            const DOWN_KEY = 40;
+
+            const goingUp = dy === -10;
+            const goingDown = dy === 10;
+            const goingRight = dx === 10;
+            const goingLeft = dx === -10;
+
+            if (keyPressed === LEFT_KEY && !goingRight) {
+                dx = -10;
+                dy = 0;
+            }
+
+            if (keyPressed === UP_KEY && !goingDown) {
+                dx = 0;
+                dy = -10;
+            }
+
+            if (keyPressed === RIGHT_KEY && !goingLeft) {
+                dx = 10;
+                dy = 0;
+            }
+
+            if (keyPressed === DOWN_KEY && !goingUp) {
+                dx = 0;
+                dy = 10;
+            }
+        }
+
+        function gameOver() {
+            stopGame();
+            finalScore.textContent = '🏆 Score: ' + score + ' 🏆';
+            gameOverModal.style.display = 'flex';
+        }
+
+        document.addEventListener('keydown', changeDirection);
+
+        closeModalButton.addEventListener('click', () => {
+            gameOverModal.style.display = 'none';
+            restartGame();
+        });
+
+        startGame();
+    </script>
+    <footer class="text-center mt-2">
+        <p>&copy; 2024 <a href="https://x.com/nop_sl3d">pruger</a>. All rights reserved.</p>
+        <a href="https://github.com/pruger/tiny-brutalism-css" class="button">Check on GitHub</a>
+    </footer>
+</body>
+</html>

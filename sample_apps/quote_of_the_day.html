@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quote of the Day</title>
+    <link rel="stylesheet" href="../tiny-brutalism.css">
+</head>
+<body>
+    <div class="container" style="max-width: 600px;">
+        <h1 class="text-center">Brutal Quote of the Day</h1>
+        <br>
+        <div class="box text-center" id="quoteBox">
+            <h2 id="quoteText">Click the button to get a quote</h2>
+            <p id="quoteAuthor"></p>
+        </div>
+        <br>
+        <div class="row mt-2">
+            <div class="col-6 text-center">
+                <button id="newQuoteButton" class="button">Get Quote</button>
+            </div>
+            <div class="col-6 text-center">
+                <button id="addQuoteButton" class="button">Add Quote</button>
+            </div>
+        </div>
+
+        <div id="addQuoteModal" class="modal">
+            <div class="modal-content">
+                <h2>Add New Quote</h2>
+                <form id="quoteForm">
+                    <label for="quoteTextInput">Quote</label>
+                    <textarea id="quoteTextInput" name="quoteText" required></textarea>
+
+                    <label for="quoteAuthorInput">Author</label>
+                    <input type="text" id="quoteAuthorInput" name="quoteAuthor" required>
+
+                    <button type="submit" class="button">Save Quote</button>
+                    <button type="button" id="closeModalButton" class="button">Cancel</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const newQuoteButton = document.getElementById('newQuoteButton');
+        const addQuoteButton = document.getElementById('addQuoteButton');
+        const addQuoteModal = document.getElementById('addQuoteModal');
+        const closeModalButton = document.getElementById('closeModalButton');
+        const quoteForm = document.getElementById('quoteForm');
+        const quoteBox = document.getElementById('quoteBox');
+        const quoteText = document.getElementById('quoteText');
+        const quoteAuthor = document.getElementById('quoteAuthor');
+
+        const quotes = [
+            { text: "The only way to do great work is to love what you do.", author: "Steve Jobs" },
+            { text: "Life is what happens when you're busy making other plans.", author: "John Lennon" },
+            { text: "Get busy living or get busy dying.", author: "Stephen King" },
+            // Add more quotes here
+        ];
+
+        newQuoteButton.addEventListener('click', () => {
+            const randomQuote = quotes[Math.floor(Math.random() * quotes.length)];
+            displayQuote(randomQuote);
+        });
+
+        addQuoteButton.addEventListener('click', () => {
+            openModal();
+        });
+
+        closeModalButton.addEventListener('click', () => {
+            closeModal();
+        });
+
+        quoteForm.addEventListener('submit', (event) => {
+            event.preventDefault();
+
+            const text = event.target.quoteText.value;
+            const author = event.target.quoteAuthor.value;
+
+            const newQuote = { text, author };
+            quotes.push(newQuote);
+            displayQuote(newQuote);
+
+            closeModal();
+        });
+
+        window.addEventListener('click', (event) => {
+            if (event.target === addQuoteModal) {
+                closeModal();
+            }
+        });
+
+        function displayQuote(quote) {
+            quoteText.innerText = quote.text;
+            quoteAuthor.innerText = `— ${quote.author}`;
+        }
+
+        function openModal() {
+            addQuoteModal.style.display = 'flex';
+        }
+
+        function closeModal() {
+            addQuoteModal.style.display = 'none';
+            quoteForm.reset();
+        }
+    </script>
+    <footer class="text-center mt-2">
+        <p>&copy; 2024 <a href="https://x.com/nop_sl3d">pruger</a>. All rights reserved.</p>
+        <a href="https://github.com/pruger/tiny-brutalism-css" class="button">Check on GitHub</a>
+    </footer>
+</body>
+</html>
