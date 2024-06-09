@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guess the Number</title>
+    <link rel="stylesheet" href="../../tiny-brutalism.css">
+</head>
+<body>
+    <div class="container text-center">
+        <h1>Guess the Number</h1>
+        <div class="box" style="max-width: 300px; margin: 0 auto;">
+            <form id="guessForm">
+                <label for="guessInput">Enter a number between 1 and 100:</label>
+                <input type="number" id="guessInput" name="guessInput" min="1" max="100" required>
+                <button type="submit" class="button">Guess</button>
+            </form>
+            <div id="feedback" class="alert alert-info mt-2">Make your guess!</div>
+        </div>
+        <button id="restartButton" class="button mt-2">Restart Game</button>
+    </div>
+
+    <script>
+        const guessForm = document.getElementById('guessForm');
+        const guessInput = document.getElementById('guessInput');
+        const feedback = document.getElementById('feedback');
+        const restartButton = document.getElementById('restartButton');
+        let randomNumber;
+
+        function startGame() {
+            randomNumber = Math.floor(Math.random() * 100) + 1;
+            feedback.textContent = 'Make your guess!';
+            feedback.className = 'alert alert-info mt-2';
+        }
+
+        guessForm.addEventListener('submit', (event) => {
+            event.preventDefault();
+            const guess = parseInt(guessInput.value, 10);
+            if (guess === randomNumber) {
+                feedback.textContent = 'Congratulations! You guessed the correct number!';
+                feedback.className = 'alert alert-success mt-2';
+            } else if (guess < randomNumber) {
+                feedback.textContent = 'Too low! Try again.';
+                feedback.className = 'alert alert-warning mt-2';
+            } else {
+                feedback.textContent = 'Too high! Try again.';
+                feedback.className = 'alert alert-warning mt-2';
+            }
+        });
+
+        restartButton.addEventListener('click', startGame);
+
+        startGame();
+    </script>
+    <footer class="text-center mt-2">
+        <p>&copy; 2024 <a href="https://x.com/nop_sl3d">pruger</a>. All rights reserved.</p>
+        <a href="https://github.com/pruger/tiny-brutalism-css" class="button">Check on GitHub</a>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Brutal Habit Tracker</title>
+    <link rel="stylesheet" href="../tiny-brutalism.css">
+</head>
+<body>
+    <div class="container" style="max-width: 800px;">
+        <h1 class="text-center">Brutal Habit Tracker</h1>
+        <div class="row mb-2">
+            <div class="col-9">
+                <button id="addHabitButton" class="button">Add Habit</button>
+            </div>
+        </div>
+
+        <div id="habitList">
+            <!-- Habits will be added here dynamically -->
+        </div>
+
+        <div id="addHabitModal" class="modal">
+            <div class="modal-content">
+                <h2>Add New Habit</h2>
+                <form id="habitForm">
+                    <label for="habitName">Habit Name</label>
+                    <input type="text" id="habitName" name="habitName" required>
+
+                    <button type="submit" class="button">Save Habit</button>
+                    <button type="button" id="closeModalButton" class="button">Cancel</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const addHabitButton = document.getElementById('addHabitButton');
+        const addHabitModal = document.getElementById('addHabitModal');
+        const closeModalButton = document.getElementById('closeModalButton');
+        const habitForm = document.getElementById('habitForm');
+        const habitList = document.getElementById('habitList');
+
+        addHabitButton.addEventListener('click', () => {
+            openModal();
+        });
+
+        closeModalButton.addEventListener('click', () => {
+            closeModal();
+        });
+
+        habitForm.addEventListener('submit', (event) => {
+            event.preventDefault();
+            const habitName = event.target.habitName.value;
+            addHabit(habitName);
+            closeModal();
+        });
+
+        window.addEventListener('click', (event) => {
+            if (event.target === addHabitModal) {
+                closeModal();
+            }
+        });
+
+        function addHabit(habitName) {
+            const habitBox = document.createElement('div');
+            habitBox.className = 'box';
+            habitBox.innerHTML = `
+                <div class="row mb-1">
+                    <div class="col-9">
+                        <h2>${habitName}</h2>
+                    </div>
+                    <div class="col-3 text-right">
+                        <button class="button delete-habit">X</button>
+                    </div>
+                </div>
+                <div class="row mb-1">
+                    ${generateDaysMarkup()}
+                </div>
+            `;
+
+            habitList.appendChild(habitBox);
+            habitBox.querySelector('.delete-habit').addEventListener('click', () => {
+                deleteHabit(habitBox);
+            });
+
+            habitBox.querySelectorAll('.day-checkbox').forEach(checkbox => {
+                checkbox.addEventListener('change', () => {
+                    updateHabitCompletion(checkbox);
+                });
+            });
+        }
+
+        function generateDaysMarkup() {
+            const days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+            return days.map(day => `
+                <div class="col-1 text-center">
+                    <label>${day}</label>
+                    <input type="checkbox" class="day-checkbox">
+                </div>
+            `).join('');
+        }
+
+        function updateHabitCompletion(checkbox) {
+            // Logic to handle habit completion status
+        }
+
+        function deleteHabit(habitBox) {
+            habitList.removeChild(habitBox);
+        }
+
+        function openModal() {
+            addHabitModal.style.display = 'flex';
+        }
+
+        function closeModal() {
+            addHabitModal.style.display = 'none';
+            habitForm.reset();
+        }
+    </script>
+    <footer class="text-center mt-2">
+        <p>&copy; 2024 <a href="https://x.com/nop_sl3d">pruger</a>. All rights reserved.</p>
+        <a href="https://github.com/pruger/tiny-brutalism-css" class="button">Check on GitHub</a>
+    </footer>
+</body>
+</html>

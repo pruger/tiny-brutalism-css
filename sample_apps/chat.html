@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fake Chat App</title>
+    <link rel="stylesheet" href="../tiny-brutalism.css">
+</head>
+<body>
+    <div class="container" style="max-width: 600px;">
+        <h1 class="text-center">💬</h1>
+        <div id="chatBox" class="box" style="height: 800px; overflow-y: auto;">
+            <!-- Messages will be added here dynamically -->
+        </div>
+        <form id="chatForm" class="row mt-2">
+            <div class="col-9">
+                <input type="text" id="chatInput" class="input" placeholder="Type a message..." required>
+            </div>
+            <div class="col-3 text-right">
+                <button type="submit" class="button">Send</button>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        const chatForm = document.getElementById('chatForm');
+        const chatInput = document.getElementById('chatInput');
+        const chatBox = document.getElementById('chatBox');
+
+        chatForm.addEventListener('submit', (event) => {
+            event.preventDefault();
+            const message = chatInput.value;
+            addMessage('You', message, 'alert-info');
+            chatInput.value = '';
+            setTimeout(() => addMessage('Bot', getRandomReply(), 'alert-warning'), 1000);
+        });
+
+        function addMessage(sender, message, alertClass) {
+            const messageBox = document.createElement('div');
+            messageBox.className = `alert ${alertClass}`;
+            messageBox.innerHTML = `
+                <strong>${sender}:</strong>
+                <p>${message}</p>
+            `;
+            chatBox.appendChild(messageBox);
+            chatBox.scrollTop = chatBox.scrollHeight;
+        }
+
+        function getRandomReply() {
+            const replies = [
+                "Hello! How are you?",
+                "That's interesting!",
+                "Tell me more.",
+                "I'm just a bot.",
+                "Do you like chatting?",
+                "What's your favorite hobby?",
+                "I can chat all day long!",
+            ];
+            return replies[Math.floor(Math.random() * replies.length)];
+        }
+    </script>
+    <footer class="text-center mt-2">
+        <p>&copy; 2024 <a href="https://x.com/nop_sl3d">pruger</a>. All rights reserved.</p>
+        <a href="https://github.com/pruger/tiny-brutalism-css" class="button">Check on GitHub</a>
+    </footer>
+</body>
+</html>

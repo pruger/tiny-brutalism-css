@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crypto DEX</title>
+    <link rel="stylesheet" href="../tiny-brutalism.css">
+</head>
+<body>
+    <div class="container" style="max-width: 800px;">
+        <div class="row">
+            <div class="col-9">
+                <h1>Brutal(ist) DEX</h1>
+            </div>
+            <div class="col-3 text-right">
+                <button id="connectWalletButton" class="button">Connect Wallet</button>
+            </div>
+        </div>
+        <br>
+        <div class="alert alert-info" id="infoAlert">
+            Connect your wallet to start trading.
+        </div>
+        <br>
+        <div class="trade-section" id="tradeSection" style="display: none;">
+            <div class="box">
+                <h2 id="tradeTitle">Trade Ethereum (ETH) to USDC</h2>
+                <form id="tradeForm">
+                    <label for="tradePair">Select Pair</label>
+                    <select id="tradePair" name="tradePair" required>
+                        <option value="eth-usdc">ETH to USDC</option>
+                        <option value="usdc-eth">USDC to ETH</option>
+                    </select>
+
+                    <label for="tradeAmount">Amount</label>
+                    <input type="number" id="tradeAmount" name="tradeAmount" required>
+
+                    <button type="submit" class="button">Execute Trade</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div id="tradeModal" class="modal">
+        <div class="modal-content">
+            <h2 id="tradeModalTitle">Trade Executing...</h2>
+            <br>
+            <p id="tradeDetails">Loading...</p>
+            <br>
+            <div class="progress">
+                <div class="progress-bar" id="progressBar"></div>
+            </div>
+            <br>
+            <button class="button" id="closeModalButton" style="display: none;">Close</button>
+        </div>
+    </div>
+
+    <script>
+        const connectWalletButton = document.getElementById('connectWalletButton');
+        const tradeSection = document.getElementById('tradeSection');
+        const infoAlert = document.getElementById('infoAlert');
+        const tradeForm = document.getElementById('tradeForm');
+        const tradePair = document.getElementById('tradePair');
+        const tradeTitle = document.getElementById('tradeTitle');
+        const tradeModal = document.getElementById('tradeModal');
+        const tradeModalTitle = document.getElementById('tradeModalTitle');
+        const tradeDetails = document.getElementById('tradeDetails');
+        const progressBar = document.getElementById('progressBar');
+        const closeModalButton = document.getElementById('closeModalButton');
+
+        connectWalletButton.addEventListener('click', () => {
+            if (connectWalletButton.textContent === 'Connect Wallet') {
+                // Simulate wallet connection
+                infoAlert.textContent = 'Wallet connected successfully. You can now trade.';
+                tradeSection.style.display = 'block';
+                connectWalletButton.textContent = 'Disconnect';
+            } else {
+                // Disconnect wallet
+                infoAlert.textContent = 'Connect your wallet to start trading.';
+                tradeSection.style.display = 'none';
+                connectWalletButton.textContent = 'Connect Wallet';
+            }
+        });
+
+        tradeForm.addEventListener('submit', (event) => {
+            event.preventDefault();
+            const tradeType = tradePair.value;
+            const tradeAmount = event.target.tradeAmount.value;
+
+            // Show the modal
+            tradeModalTitle.textContent = 'Trade Executing...';
+            tradeDetails.textContent = 'Loading...';
+            tradeModal.style.display = 'flex';
+            closeModalButton.style.display = 'none';
+
+            // Reset progress bar
+            progressBar.style.width = '0%';
+
+            // Animate progress bar
+            let progress = 0;
+            const interval = setInterval(() => {
+                progress += 1;
+                progressBar.style.width = `${progress}%`;
+                if (progress >= 100) {
+                    clearInterval(interval);
+                    tradeModalTitle.textContent = 'Trade Executed';
+                    tradeDetails.textContent = `Trade executed: ${tradeType.toUpperCase()} ${tradeAmount}`;
+                    closeModalButton.style.display = 'block';
+                }
+            }, 50);
+        });
+
+        closeModalButton.addEventListener('click', () => {
+            tradeModal.style.display = 'none';
+        });
+
+        tradePair.addEventListener('change', (event) => {
+            const selectedPair = event.target.value;
+            if (selectedPair === 'eth-usdc') {
+                tradeTitle.textContent = 'Trade Ethereum (ETH) to USDC';
+            } else {
+                tradeTitle.textContent = 'Trade USDC to Ethereum (ETH)';
+            }
+        });
+
+        // Initially hide the trade section
+        tradeSection.style.display = 'none';
+    </script>
+    <footer class="text-center">
+        <p>&copy; 2024 <a href="https://x.com/nop_sl3d">pruger</a>. All rights reserved.</p>
+        <a href="https://github.com/pruger/tiny-brutalism-css" class="button">Check on GitHub</a>
+    </footer>
+</body>
+</html>

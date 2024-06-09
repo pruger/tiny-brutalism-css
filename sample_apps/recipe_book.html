@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recipe Book</title>
+    <link rel="stylesheet" href="../tiny-brutalism.css">
+</head>
+<body>
+    <div class="container recipe-book">
+        <div class="header">
+            <h1 class="text-center">Recipe Book 🧑‍🍳📖</h1>
+            <br>
+            <button id="addRecipeButton" class="button">Add Recipe</button>
+        </div>
+        <br>
+        <div class="search-bar">
+            <label for="searchInput">Search Recipes:</label>
+            <input type="text" id="searchInput" placeholder="Enter recipe title">
+        </div>
+
+        <div class="recipe-list" id="recipeList">
+            <!-- Recipe items will be added here dynamically -->
+        </div>
+    </div>
+
+    <div id="addRecipeModal" class="modal">
+        <div class="modal-content">
+            <h2>Add New Recipe</h2>
+            <form id="addRecipeForm">
+                <label for="recipeTitle">Title</label>
+                <input type="text" id="recipeTitle" name="recipeTitle" required>
+
+                <label for="recipeDescription">Description</label>
+                <textarea id="recipeDescription" name="recipeDescription" required></textarea>
+
+                <label for="recipeIngredients">Ingredients (comma separated)</label>
+                <textarea id="recipeIngredients" name="recipeIngredients" required></textarea>
+
+                <label for="recipeSteps">Steps (comma separated)</label>
+                <textarea id="recipeSteps" name="recipeSteps" required></textarea>
+
+                <button type="submit" class="button">Add Recipe</button>
+                <button type="button" id="closeModalButton" class="button">Cancel</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        const recipes = [
+            { title: 'Spaghetti Bolognese', description: 'A classic Italian pasta dish.', ingredients: ['spaghetti', 'ground beef', 'tomato sauce', 'onion', 'garlic', 'olive oil', 'basil'], steps: ['Cook spaghetti', 'Prepare sauce', 'Mix and serve'] },
+            { title: 'Chicken Curry', description: 'A spicy and savory chicken curry.', ingredients: ['chicken', 'curry powder', 'coconut milk', 'onion', 'garlic', 'ginger', 'tomato paste'], steps: ['Cook chicken', 'Prepare curry sauce', 'Combine and simmer'] },
+            { title: 'Beef Stew', description: 'A hearty beef stew.', ingredients: ['beef', 'potatoes', 'carrots', 'onion', 'garlic', 'beef broth', 'tomato paste'], steps: ['Brown beef', 'Add vegetables', 'Simmer until tender'] },
+            { title: 'Caesar Salad', description: 'A fresh Caesar salad.', ingredients: ['romaine lettuce', 'croutons', 'Caesar dressing', 'parmesan cheese', 'chicken (optional)'], steps: ['Chop lettuce', 'Add croutons and dressing', 'Toss and serve'] },
+            { title: 'Pancakes', description: 'Fluffy pancakes.', ingredients: ['flour', 'milk', 'eggs', 'sugar', 'baking powder', 'butter'], steps: ['Mix ingredients', 'Pour batter on griddle', 'Flip and serve'] },
+         ];
+
+        const addRecipeButton = document.getElementById('addRecipeButton');
+        const addRecipeModal = document.getElementById('addRecipeModal');
+        const closeModalButton = document.getElementById('closeModalButton');
+        const addRecipeForm = document.getElementById('addRecipeForm');
+        const recipeList = document.getElementById('recipeList');
+        const searchInput = document.getElementById('searchInput');
+
+        function displayRecipeList(filteredRecipes = recipes) {
+            recipeList.innerHTML = '';
+            filteredRecipes.forEach((recipe, index) => {
+                const recipeBox = document.createElement('div');
+                recipeBox.className = 'box';
+                recipeBox.innerHTML = `
+                    <h3>${recipe.title}</h3>
+                    <p>${recipe.description}</p>
+                    <div class="recipe-details" id="recipeDetails${index}" style="display: none;"></div>
+                `;
+                recipeBox.addEventListener('click', () => {
+                    displayRecipeDetails(index);
+                });
+                recipeList.appendChild(recipeBox);
+            });
+        }
+
+        function displayRecipeDetails(index) {
+            const recipe = recipes[index];
+            const recipeDetails = document.getElementById(`recipeDetails${index}`);
+            recipeDetails.innerHTML = `
+                <div class="box">
+                    <h2>${recipe.title}</h2>
+                    <p> ${recipe.description}</p>
+                    <h3>Ingredients</h3>
+                    <ul>
+                        ${recipe.ingredients.map(ingredient => `<li> ${ingredient}</li>`).join('')}
+                    </ul>
+                    <h3>Steps</h3>
+                    <ul>
+                        ${recipe.steps.map(step => `<li>${step}</li>`).join('')}
+                    </ul>
+                </div>
+            `;
+            recipeDetails.style.display = recipeDetails.style.display === 'none' ? 'block' : 'none';
+        }
+
+        addRecipeButton.addEventListener('click', () => {
+            addRecipeModal.style.display = 'flex';
+        });
+
+        closeModalButton.addEventListener('click', () => {
+            addRecipeModal.style.display = 'none';
+        });
+
+        addRecipeForm.addEventListener('submit', (event) => {
+            event.preventDefault();
+
+            const title = event.target.recipeTitle.value;
+            const description = event.target.recipeDescription.value;
+            const ingredients = event.target.recipeIngredients.value.split(',').map(ingredient => ingredient.trim());
+            const steps = event.target.recipeSteps.value.split(',').map(step => step.trim());
+
+            recipes.push({ title, description, ingredients, steps });
+            displayRecipeList();
+            addRecipeForm.reset();
+            addRecipeModal.style.display = 'none';
+        });
+
+        searchInput.addEventListener('input', () => {
+            const searchTerm = searchInput.value.toLowerCase();
+            const filteredRecipes = recipes.filter(recipe => recipe.title.toLowerCase().includes(searchTerm));
+            displayRecipeList(filteredRecipes);
+        });
+
+        // Initially hide the add recipe modal
+        addRecipeModal.style.display = 'none';
+
+        // Display the initial list of recipes
+        displayRecipeList();
+    </script>
+    <footer class="text-center">
+        <p>&copy; 2024 <a href="https://x.com/nop_sl3d">pruger</a>. All rights reserved.</p>
+        <a href="https://github.com/pruger/tiny-brutalism-css" class="button">Check on GitHub</a>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <title>Text-Based Adventure Game</title>
+    <link rel="stylesheet" href="../../tiny-brutalism.css">
+</head>
+<body>
+    <div class="container text-center">
+        <h1>Adventure Game</h1>
+        <div id="story" class="box">
+            <!-- Story content will be displayed here -->
+        </div>
+        <div id="choices" class="mt-2">
+            <!-- Choice buttons will be dynamically generated here -->
+        </div>
+        <button id="restartButton" class="button mt-2" onclick="startGame()">Restart Game</button>
+    </div>
+
+    <script>
+        const storyElement = document.getElementById('story');
+        const choicesElement = document.getElementById('choices');
+
+        const story = {
+            start: {
+                text: "You are standing at the entrance of a dark forest. You can go left, right, or straight ahead.",
+                choices: [
+                    { text: "Go left", next: "leftPath" },
+                    { text: "Go right", next: "rightPath" },
+                    { text: "Go straight", next: "straightPath" }
+                ]
+            },
+            leftPath: {
+                text: "You walk down the left path and encounter a wild animal. Do you run or try to fight it?",
+                choices: [
+                    { text: "Run", next: "run" },
+                    { text: "Fight", next: "fight" }
+                ]
+            },
+            rightPath: {
+                text: "You walk down the right path and find a treasure chest. Do you open it or leave it?",
+                choices: [
+                    { text: "Open it", next: "openChest" },
+                    { text: "Leave it", next: "leaveChest" }
+                ]
+            },
+            straightPath: {
+                text: "You walk straight ahead and reach a river. Do you swim across or follow the river?",
+                choices: [
+                    { text: "Swim across", next: "swim" },
+                    { text: "Follow the river", next: "followRiver" }
+                ]
+            },
+            run: {
+                text: "You run back to the entrance of the forest. Start over?",
+                choices: [
+                    { text: "Yes", next: "start" },
+                    { text: "No", next: "end" }
+                ]
+            },
+            fight: {
+                text: "You fight the animal and win! Do you continue on the path or go back?",
+                choices: [
+                    { text: "Continue", next: "continuePath" },
+                    { text: "Go back", next: "start" }
+                ]
+            },
+            openChest: {
+                text: "You open the chest and find gold! Do you take it or leave it?",
+                choices: [
+                    { text: "Take it", next: "takeGold" },
+                    { text: "Leave it", next: "leaveGold" }
+                ]
+            },
+            leaveChest: {
+                text: "You leave the chest and continue on the path. You reach the end of the forest. You win!",
+                choices: [
+                    { text: "Restart", next: "start" }
+                ]
+            },
+            swim: {
+                text: "You try to swim across but the current is too strong. You go back to the entrance. Start over?",
+                choices: [
+                    { text: "Yes", next: "start" },
+                    { text: "No", next: "end" }
+                ]
+            },
+            followRiver: {
+                text: "You follow the river and find a bridge. You cross it and reach the end of the forest. You win!",
+                choices: [
+                    { text: "Restart", next: "start" }
+                ]
+            },
+            continuePath: {
+                text: "You continue on the path and find a small village. You are safe. You win!",
+                choices: [
+                    { text: "Restart", next: "start" }
+                ]
+            },
+            takeGold: {
+                text: "You take the gold and continue on the path. You reach the end of the forest. You win!",
+                choices: [
+                    { text: "Restart", next: "start" }
+                ]
+            },
+            leaveGold: {
+                text: "You leave the gold and continue on the path. You reach the end of the forest. You win!",
+                choices: [
+                    { text: "Restart", next: "start" }
+                ]
+            },
+            end: {
+                text: "Game over.",
+                choices: [
+                    { text: "Restart", next: "start" }
+                ]
+            }
+        };
+
+        function startGame() {
+            showStory(story.start);
+        }
+
+        function showStory(node) {
+            storyElement.innerHTML = `<p>${node.text}</p>`;
+            choicesElement.innerHTML = '';
+            node.choices.forEach(choice => {
+                const button = document.createElement('button');
+                button.textContent = choice.text;
+                button.className = 'button';
+                button.onclick = () => showStory(story[choice.next]);
+                choicesElement.appendChild(button);
+            });
+        }
+
+        startGame();
+    </script>
+    <footer class="text-center mt-2">
+        <p>&copy; 2024 <a href="https://x.com/nop_sl3d">pruger</a>. All rights reserved.</p>
+        <a href="https://github.com/pruger/tiny-brutalism-css" class="button">Check on GitHub</a>
+    </footer>
+</body>
+</html>

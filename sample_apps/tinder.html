@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tinder Clone</title>
+    <link rel="stylesheet" href="../tiny-brutalism.css">
+</head>
+<body>
+    <div class="container" style="max-width: 600px; text-align: center;">
+        <h1 class="text-center">Tinder Clone</h1>
+        <div id="imageContainer" class="box mb-2">
+            <img id="randomImage" src="https://picsum.photos/400/600?grayscale" alt="Random Image" style="width: 100%;">
+        </div>
+        <div class="row">
+            <div class="col-6">
+                <button id="dislikeButton" class="button">❌</button>
+            </div>
+            <div class="col-6 text-right">
+                <button id="likeButton" class="button">✅</button>
+            </div>
+        </div>
+
+        <div id="likeModal" class="modal">
+            <div class="modal-content">
+                <h2>Congrats!</h2>
+                <p>This definately real person likes you as well. Send dunes.</p>
+                <img id="likedImage" src="" alt="Liked Image" style="width: 100%;">
+                <button class="button" id="closeModalButton">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const dislikeButton = document.getElementById('dislikeButton');
+        const likeButton = document.getElementById('likeButton');
+        const randomImage = document.getElementById('randomImage');
+        const likeModal = document.getElementById('likeModal');
+        const likedImage = document.getElementById('likedImage');
+        const closeModalButton = document.getElementById('closeModalButton');
+
+        dislikeButton.addEventListener('click', () => {
+            loadNewImage();
+        });
+
+        likeButton.addEventListener('click', () => {
+            if (Math.random() > 0.5) {
+                likedImage.src = randomImage.src;
+                likeModal.style.display = 'flex';
+            } else {
+                loadNewImage();
+            }
+        });
+
+        closeModalButton.addEventListener('click', () => {
+            likeModal.style.display = 'none';
+            loadNewImage();
+        });
+
+        function loadNewImage() {
+            randomImage.src = `https://picsum.photos/200/300?grayscale&t=${new Date().getTime()}`;
+        }
+    </script>
+    <footer class="text-center mt-2">
+        <p>&copy; 2024 <a href="https://x.com/nop_sl3d">pruger</a>. All rights reserved.</p>
+        <a href="https://github.com/pruger/tiny-brutalism-css" class="button">Check on GitHub</a>
+    </footer>
+</body>
+</html>
