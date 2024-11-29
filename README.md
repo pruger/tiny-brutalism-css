@@ -16,9 +16,13 @@ Tiny Brutalism is a minimalist, brutalist-style CSS framework that focuses on mo
 * Brutal
 
 ### Installation
-Local installation only at this time. CDN Delivery shortly
+Local installation:
 ````
     <link rel="stylesheet" href="tiny-brutalism.css">
+````
+CDN installation
+````
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/pruger/tiny-brutalism-css/tiny-brutalism.css">
 ````
 
 ### Usage
