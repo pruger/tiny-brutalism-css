@@ -5,12 +5,35 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tiny Brutalism CSS Demo</title>
     <link rel="stylesheet" href="tiny-brutalism.css">
+    <style>
+        .github-cta {
+            margin: 2rem 0;
+            padding: 2rem;
+            border: 2px solid #000;
+            box-shadow: 4px 4px 0 #000;
+            text-align: center;
+        }
+        .github-star {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        .logo {
+            max-width: 200px;
+            margin: 0 auto 1rem;
+            display: block;
+        }
+        .built-with {
+            margin: 1rem 0;
+        }
+    </style>
 </head>
 <body>
 
     <div class="container">
+        <img src="logos/logo_dropshadow.png" alt="Tiny Brutalism CSS Logo" class="logo">
         <h1 class="text-center">Tiny BRUTALISM CSS Library</h1>
         <p class="text-center">A simple, bold, and minimal CSS library for brutalist web design.</p>
+        <p class="text-center"><strong>Only 4KB in size!</strong></p>
 
         <section>
             <h2>Typography</h2>
@@ -22,6 +45,7 @@
             <h5>Heading 5</h5>
             <h6>Heading 6</h6>
             <p>Paragraph text goes here. It has a default bottom margin for proper spacing.</p>
+            <a href="#">This is a text link</a>
         </section>
         <br>
 
@@ -56,6 +80,28 @@
                     <div class="box">.col-4</div>
                 </div>
             </div>
+            <div class="row">
+                <div class="col col-3">
+                    <div class="box">.col-3</div>
+                </div>
+                <div class="col col-3">
+                    <div class="box">.col-3</div>
+                </div>
+                <div class="col col-3">
+                    <div class="box">.col-3</div>
+                </div>
+                <div class="col col-3">
+                    <div class="box">.col-3</div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col col-2">
+                    <div class="box">.col-2</div>
+                </div>
+                <div class="col col-10">
+                    <div class="box">.col-10</div>
+                </div>
+            </div>
         </section>
         <br>
 
@@ -72,11 +118,14 @@
             <p>Basic form elements with bold styles.</p>
             <form>
                 <label for="text-input">Text Input</label>
-                <input type="text" id="text-input">
+                <input type="text" id="text-input" placeholder="Enter text here">
+                
                 <label for="password-input">Password Input</label>
-                <input type="password" id="password-input">
+                <input type="password" id="password-input" placeholder="Enter password">
+                
                 <label for="textarea">Textarea</label>
-                <textarea id="textarea"></textarea>
+                <textarea id="textarea" placeholder="Write your message here"></textarea>
+                
                 <label for="select">Select</label>
                 <select id="select">
                     <option>Option 1</option>
@@ -84,8 +133,21 @@
                     <option>Option 3</option>
                     <option>Option 4</option>
                 </select>
-                <label><input type="checkbox"> Checkbox</label>
-                <label><input type="radio" name="radio"> Radio Button</label>
+                
+                <div class="mt-1 mb-1">
+                    <label><input type="checkbox"> Checkbox 1</label>
+                </div>
+                <div class="mb-1">
+                    <label><input type="checkbox"> Checkbox 2</label>
+                </div>
+                
+                <div class="mb-1">
+                    <label><input type="radio" name="radio"> Radio Button 1</label>
+                </div>
+                <div class="mb-1">
+                    <label><input type="radio" name="radio"> Radio Button 2</label>
+                </div>
+                
                 <button type="submit">Submit</button>
             </form>
         </section>
@@ -108,6 +170,7 @@
                 <div class="modal-content">
                     <h3>Modal Title</h3>
                     <p>This is a modal window. Click outside to close.</p>
+                    <button onclick="document.getElementById('modal').style.display='none'" class="mt-1">Close</button>
                 </div>
             </div>
         </section>
@@ -119,18 +182,22 @@
             <div class="progress">
                 <div class="progress-bar progress-bar-25"></div>
             </div>
-            <br>
-            <div class="progress">
+            <p class="mt-1">25% Complete</p>
+            
+            <div class="progress mt-2">
                 <div class="progress-bar progress-bar-50"></div>
             </div>
-            <br>
-            <div class="progress">
+            <p class="mt-1">50% Complete</p>
+            
+            <div class="progress mt-2">
                 <div class="progress-bar progress-bar-75"></div>
             </div>
-            <br>
-            <div class="progress">
+            <p class="mt-1">75% Complete</p>
+            
+            <div class="progress mt-2">
                 <div class="progress-bar progress-bar-100"></div>
             </div>
+            <p class="mt-1">100% Complete</p>
         </section>
         <br>
 
@@ -144,7 +211,40 @@ body {
     font-family: 'Roboto Mono', monospace;
     background-color: #fff;
 }
+
+.box {
+    padding: 1rem;
+    border: 2px solid #000;
+    box-shadow: 4px 4px 0 #000;
+}
                 </code>
+            </div>
+        </section>
+        <br>
+
+        <section>
+            <h2>Utility Classes</h2>
+            <p>Tiny Brutalism includes utility classes for margin control.</p>
+            
+            <div class="box">Default box</div>
+            
+            <div class="box mt-1">Box with margin-top: 1rem (.mt-1)</div>
+            
+            <div class="box mb-1">Box with margin-bottom: 1rem (.mb-1)</div>
+            
+            <div class="row">
+                <div class="col col-6">
+                    <div class="box mr-1">Box with margin-right: 1rem (.mr-1)</div>
+                </div>
+                <div class="col col-6">
+                    <div class="box ml-1">Box with margin-left: 1rem (.ml-1)</div>
+                </div>
+            </div>
+            
+            <div class="box mt-2">Box with margin-top: 2rem (.mt-2)</div>
+            
+            <div class="text-center mt-2">
+                <p>This text is centered using .text-center</p>
             </div>
         </section>
         <br>
@@ -162,18 +262,49 @@ body {
         </section>
         <br>
 
-        <footer class="text-center">
-            <p>&copy; 2024 <a href="https://x.com/nop_sl3d">pruger</a>. All rights reserved.</p>
-            <a href="https://github.com/pruger/tiny-brutalism-css" class="button">Check on GitHub</a>
+        <section>
+            <h2>Installation</h2>
+            <p>Add Tiny Brutalism CSS to your project:</p>
+            
+            <div class="code-container">
+                <h3>Local Installation</h3>
+                <div class="code-container">
+                    <code>&lt;link rel="stylesheet" href="tiny-brutalism.css"&gt;</code>
+                </div>
+
+                <h3>CDN Installation</h3>
+                <div class="code-container">
+                    <code>&lt;link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/pruger/tiny-brutalism-css/tiny-brutalism.css"&gt;</code>
+                </div>
+            </div>
+        </section>
+        <br>
+
+        <div class="github-cta">
+            <div class="github-star">⭐ Support Tiny Brutalism CSS ⭐</div>
+            <p>If you find this framework useful, please consider:</p>
+            <div class="row">
+                <div class="col">
+                    <a href="https://github.com/pruger/tiny-brutalism-css" class="button">Star on GitHub</a>
+                </div>
+            </div>
+        </div>
+
+        <footer class="text-center mt-2">
+            <p>&copy; <span id="current-year"></span> <a href="https://x.com/nop_sl3d">pruger</a>. All rights reserved.</p>
         </footer>
     </div>
 
     <script>
+        // Modal functionality
         document.getElementById('modal').addEventListener('click', function (e) {
             if (e.target === this) {
                 this.style.display = 'none';
             }
         });
+        
+        // Dynamic copyright year
+        document.getElementById('current-year').textContent = new Date().getFullYear();
     </script>
 
 </body>
