@@ -73,6 +73,7 @@ button, .button {
     box-shadow: 4px 4px 0 #000;
     cursor: pointer;
     transition: all 0.2s ease;
+    font-family: 'Roboto Mono', monospace;
 }
 
 button:hover, .button:hover {
