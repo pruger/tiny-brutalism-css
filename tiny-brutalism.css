@@ -222,3 +222,14 @@ a:hover {
         flex: 0 0 100%;
     }
 }
+
+ul {
+    list-style-type: square;
+    margin: 1em 0 1em 2em;
+    padding: 0;
+}
+
+li {
+    font-family: inherit;
+    margin-bottom: 0.5em;
+}
